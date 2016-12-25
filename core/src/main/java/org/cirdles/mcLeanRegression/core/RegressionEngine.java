@@ -30,7 +30,7 @@ public class RegressionEngine {
             throws IOException {
 
         String dataFilePath = myDataFilePath;
-        dataFilePath = "/Users/sbowring/Development/McLeanRegression/app/ExampleDataFiles/dataunct_5D.csv";
+        dataFilePath = "/Users/sbowring/Development/McLeanRegression/app/ExampleDataFiles/dataunct_2D.csv";
 
         McLeanRegressionSetup mcLeanRegressionSetup = ImportDataTableFromCSV.extractDataAndUnctMatricesFromCsvFile(dataFilePath);
 
