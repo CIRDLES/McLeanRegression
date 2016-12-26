@@ -16,6 +16,8 @@
 package org.cirdles.mcLeanRegression.algorithms;
 
 import Jama.Matrix;
+import org.cirdles.mcLeanRegression.core.McLeanRegressionLine;
+import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngine;
 
 /**
  *
@@ -26,8 +28,8 @@ public class LevenbergMarquardt {
     private Matrix G;
     private Matrix H;
 
-    public void LevenbergMarquardt_LinearRegression_v2(//
-            McLeanRegressionSetup mcLeanRegressionSetup,
+    public McLeanRegressionLine LevenbergMarquardt_LinearRegression_v2(//
+            McLeanRegressionLineFitEngine mcLeanRegressionSetup,
             int maxIterations,
             double chiTolerance,
             double lambda0,
@@ -58,7 +60,7 @@ public class LevenbergMarquardt {
 
         calculateGradientAndHessianH(a, v, data, covMats);
 
-        Matrix Sav = new Matrix(0,0);
+        Matrix Sav = new Matrix(0, 0);
         double MSWD = 0;
         double BIC = 0;
 
@@ -103,7 +105,7 @@ public class LevenbergMarquardt {
                     Sav = H.inverse().times(-1.0);
                     L = Lnew;
                     MSWD = -2 * L / ((dimensionCount - 1) * (rowCount - 2));
-                    BIC = -2 * L + (2 * dimensionCount - 2) * StrictMath.log(rowCount);
+//                    may be needed in future BIC = -2 * L + (2 * dimensionCount - 2) * StrictMath.log(rowCount);
 
                     if (verbose) {
                         System.out.println("Lnew = " + L + "  accepted and solved in " + iterations + "  iterations");
@@ -125,13 +127,7 @@ public class LevenbergMarquardt {
             } // things got better
         } //while
 
-        //a, v, Sav, L, MSWD, BIC
-        a. print(10,5);
-        v. print(10,5);
-        Sav. print(10,5);
-        System.out.println ("L = " + L + "  MSWD = " + MSWD + "   BIC = " + BIC);
-        
-                
+        return new McLeanRegressionLine(a.getArrayCopy(), v.getArrayCopy(), Sav.getArrayCopy(), MSWD, rowCount);
     }
 
     /**

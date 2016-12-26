@@ -24,7 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import org.cirdles.commons.util.ResourceExtractor;
-import org.cirdles.mcLeanRegression.core.RegressionEngine;
+import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngine;
 import org.cirdles.mcLeanRegression.utilities.FileUtilities;
 
 /**
@@ -72,7 +72,7 @@ public class McLeanRegression {
     public static void main(String args[]) {
         // set up folder of example data files
         ResourceExtractor mcLeanRegressionResourceExtractor
-                = new ResourceExtractor(RegressionEngine.class);
+                = new ResourceExtractor(McLeanRegressionLineFitEngine.class);
 
         Path listOfDataFiles = mcLeanRegressionResourceExtractor.extractResourceAsPath("listOfDataFiles.txt");
         if (listOfDataFiles != null) {

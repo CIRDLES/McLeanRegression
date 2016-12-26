@@ -22,15 +22,17 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import org.cirdles.mcLeanRegression.algorithms.McLeanRegressionSetup;
+import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngine;
+import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngineInterface;
 
 /**
  *
  * @author James F. Bowring
  */
-public class ImportDataTableFromCSV {
+public class DataPreparation implements DataPreparationInterface {
 
-    public static McLeanRegressionSetup extractDataAndUnctMatricesFromCsvFile(String dataFileLocation)
+    @Override
+    public McLeanRegressionLineFitEngineInterface extractDataAndUnctMatricesFromCsvFile(String dataFileLocation)
             throws IOException {
 
         Path pathToLocalDataFile = FileSystems.getDefault().getPath(dataFileLocation);
@@ -58,6 +60,6 @@ public class ImportDataTableFromCSV {
             }
         }
         
-        return new McLeanRegressionSetup(data, unct);
+        return new McLeanRegressionLineFitEngine(data, unct);
     }
 }

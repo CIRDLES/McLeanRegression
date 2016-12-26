@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.cirdles.mcLeanRegression.algorithms;
+package org.cirdles.mcLeanRegression.core;
 
 import Jama.Matrix;
+import org.cirdles.mcLeanRegression.algorithms.LevenbergMarquardt;
 
 /**
  *
@@ -56,7 +57,7 @@ import Jama.Matrix;
  * 'MSWD' is the mean of the squared weighted deviates (reduced chi-square) %
  * 'n' is the number of analyses included in the calculation, = sum(skipv)
  */
-public class McLeanRegressionSetup {
+public class McLeanRegressionLineFitEngine implements McLeanRegressionLineFitEngineInterface {
 
     private Matrix data;
     private Matrix unct;
@@ -64,7 +65,11 @@ public class McLeanRegressionSetup {
     private Matrix initAV;
     private Matrix[] covMats;
 
-    public McLeanRegressionSetup(Matrix data, Matrix unct) {
+    private McLeanRegressionLineFitEngine() {
+        this(new Matrix(0,0), new Matrix(0,0));
+    }
+
+    public McLeanRegressionLineFitEngine(Matrix data, Matrix unct) {
         this.data = data;
         this.unct = unct;
         this.assump = new Matrix(0, 0);
@@ -72,6 +77,7 @@ public class McLeanRegressionSetup {
         this.covMats = new Matrix[0];
     }
 
+    @Override
     public void initializeRegressesionParams() {
         //initialize regression params with OLS regression on each marginal 
         int dimensionLessOne = data.getColumnDimension() - 1;
@@ -95,9 +101,9 @@ public class McLeanRegressionSetup {
         initAV.setMatrix(0, 0, 0, dimensionLessOne - 1, a0.transpose());
         initAV.setMatrix(0, 0, dimensionLessOne, dimensionLessOne * 2 - 1, v0.transpose());
         initAV = initAV.transpose();
-
     }
 
+    @Override
     public void initializeUnertaintyCovarianceMatrices() {
 
         int rowCount = unct.getRowDimension();
@@ -194,9 +200,41 @@ public class McLeanRegressionSetup {
         }
     }
 
+    @Override
+    public McLeanRegressionLineInterface fitLine(){
+        initializeRegressesionParams();
+
+        initializeUnertaintyCovarianceMatrices();
+
+        LevenbergMarquardt levenbergMarquardt = new LevenbergMarquardt();
+
+        // % maximum iterations before solver quits
+        int maxIterations = 10000;
+        //% tolerance of chi-square
+        double chiTolerance = 1e-12;
+        // % initial L-M damping parameter
+        double lambda0 = 1000;
+        // %set this to true to see results of each L-M iteration
+        boolean verbose = false;
+
+        McLeanRegressionLineInterface fitLine = 
+                levenbergMarquardt.LevenbergMarquardt_LinearRegression_v2(this, maxIterations, chiTolerance, lambda0, verbose);
+        
+        return fitLine;
+    }
+    
+    @Override
+    public String showSummaryOfFIt(){
+        String retVal = "Summary of line fit ...";
+        
+        
+        return retVal;
+    }
+
     /**
      * @return the data
      */
+    @Override
     public Matrix getData() {
         return data;
     }
@@ -204,6 +242,7 @@ public class McLeanRegressionSetup {
     /**
      * @return the assump
      */
+    @Override
     public Matrix getAssump() {
         return assump;
     }
@@ -211,6 +250,7 @@ public class McLeanRegressionSetup {
     /**
      * @return the initAV
      */
+    @Override
     public Matrix getInitAV() {
         return initAV;
     }
@@ -218,7 +258,8 @@ public class McLeanRegressionSetup {
     /**
      * @return the covMats
      */
+    @Override
     public Matrix[] getCovMats() {
-        return covMats;
+        return covMats.clone();
     }
 }
