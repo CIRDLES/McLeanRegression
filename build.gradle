@@ -8,7 +8,7 @@ subprojects {
     apply plugin: "java"
 
     group = "org.cirdles"
-    version = "0.0.1"
+    version = "0.0.2"
 
     description = "Implements McLean's Regression Algorithms"
 
