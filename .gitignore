@@ -3,10 +3,41 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Gradle
+.gradle/
+build/
+
+# Netbeans
+nb-configuration.xml
+nbactions.xml
+dependency-reduced-pom.xml
+nbproject/
+.nb-gradle/
+.nb-gradle-properties
+
+# IntelliJ
+.idea/
+*.iml
+
+# Generated
+*.txt
+*.csv
+*.html
+*.xml
+test_*
+*.ser
+*.zip
+
 # Package Files #
 *.jar
 *.war
 *.ear
 
+# Resources
+!core/src/main/resources/org/cirdles/mcLeanRegression/core/*.csv
+!core/src/main/resources/org/cirdles/mcLeanRegression/core/*.txt
+!core/src/main/resources/org/cirdles/mcLeanRegression/*.txt
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/app/build/
