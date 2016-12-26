@@ -15,7 +15,9 @@
  */
 package org.cirdles.mcLeanRegression;
 
+import Jama.Matrix;
 import java.io.IOException;
+import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngine;
 import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngineInterface;
 import org.cirdles.mcLeanRegression.core.McLeanRegressionLineInterface;
 import org.cirdles.mcLeanRegression.utilities.DataPreparation;
@@ -34,13 +36,42 @@ public class McLeanRegression implements McLeanRegressionInterface {
      * @throws IOException
      */
     @Override
-    public McLeanRegressionLineInterface fitLineToDataFromCSV(String myDataFilePath)
+    public McLeanRegressionLineInterface fitLineToDataFor2or3or4or5DFromCSV(String myDataFilePath)
             throws IOException {
 
         String dataFilePath = myDataFilePath;
         DataPreparationInterface dataPrep = new DataPreparation();
         McLeanRegressionLineFitEngineInterface mcLeanRegressionLineFitEngine = dataPrep.extractDataAndUnctMatricesFromCsvFile(dataFilePath);
 
+        McLeanRegressionLineInterface fitLine = mcLeanRegressionLineFitEngine.fitLine();
+
+        return fitLine;
+    }
+
+    @Override
+    public McLeanRegressionLineInterface fitLineToDataFor2D(double[] x, double[] y, double[] x1SigmaAbs, double[] y1SigmaAbs, double[] rhos) {
+        int rowCount = x.length;
+        Matrix data = new Matrix(rowCount, 2);
+        data.setMatrix(0, rowCount - 1, 0, 0, new Matrix(x, rowCount));
+        data.setMatrix(0, rowCount - 1, 1, 1, new Matrix(y, rowCount));
+        
+        Matrix unct = new Matrix(rowCount, 3);
+        unct.setMatrix(0, rowCount - 1, 0, 0, new Matrix(x1SigmaAbs, rowCount));
+        unct.setMatrix(0, rowCount - 1, 1, 1, new Matrix(y1SigmaAbs, rowCount));
+        unct.setMatrix(0, rowCount - 1, 2, 2, new Matrix(y1SigmaAbs, rowCount));
+        
+        McLeanRegressionLineFitEngineInterface mcLeanRegressionLineFitEngine = new McLeanRegressionLineFitEngine(data, unct);
+        McLeanRegressionLineInterface fitLine = mcLeanRegressionLineFitEngine.fitLine();
+
+        return fitLine;
+    }
+
+    @Override
+    public McLeanRegressionLineInterface fitLineToDataFor2D(double[][] xy, double[][] xy1SigmaAbsAndRhos) {
+        Matrix data = new Matrix(xy);
+        Matrix unct = new Matrix(xy1SigmaAbsAndRhos);
+        
+        McLeanRegressionLineFitEngineInterface mcLeanRegressionLineFitEngine = new McLeanRegressionLineFitEngine(data, unct);
         McLeanRegressionLineInterface fitLine = mcLeanRegressionLineFitEngine.fitLine();
 
         return fitLine;

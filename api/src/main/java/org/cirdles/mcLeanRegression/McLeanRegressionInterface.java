@@ -23,6 +23,9 @@ import org.cirdles.mcLeanRegression.core.McLeanRegressionLineInterface;
  * @author CIRDLES.org
  */
 public interface McLeanRegressionInterface {
-    public McLeanRegressionLineInterface fitLineToDataFromCSV(String myDataFilePath)
+    public McLeanRegressionLineInterface fitLineToDataFor2or3or4or5DFromCSV(String myDataFilePath)
             throws IOException;
+    
+    public McLeanRegressionLineInterface fitLineToDataFor2D(double[] x, double[] y, double[] x1SigmaAbs, double[] y1SigmaAbs, double[] rhos) ;
+    public McLeanRegressionLineInterface fitLineToDataFor2D(double[][] xy, double[][] xy1SigmaAbsAndRhos);
 }
