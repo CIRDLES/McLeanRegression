@@ -4,11 +4,9 @@ apply plugin: 'base' // To add "clean" task to the root project.
 
 subprojects {
     apply from: rootProject.file('common.gradle')
-    
-    apply plugin: "java"
 
     group = "org.cirdles"
-    version = "0.0.2"
+    version = "0.0.3"
 
     description = "Implements McLean's Regression Algorithms"
 
