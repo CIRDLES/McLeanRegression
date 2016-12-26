@@ -6,9 +6,9 @@ subprojects {
     apply from: rootProject.file('common.gradle')
 
     group = "org.cirdles"
-    version = "0.0.3"
+    version = "0.1.0"
 
-    description = "Implements McLean's Regression Algorithms"
+    description = "Implements McLean's Line Regression Algorithm"
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
