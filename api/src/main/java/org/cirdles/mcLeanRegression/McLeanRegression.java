@@ -58,7 +58,7 @@ public class McLeanRegression implements McLeanRegressionInterface {
         Matrix unct = new Matrix(rowCount, 3);
         unct.setMatrix(0, rowCount - 1, 0, 0, new Matrix(x1SigmaAbs, rowCount));
         unct.setMatrix(0, rowCount - 1, 1, 1, new Matrix(y1SigmaAbs, rowCount));
-        unct.setMatrix(0, rowCount - 1, 2, 2, new Matrix(y1SigmaAbs, rowCount));
+        unct.setMatrix(0, rowCount - 1, 2, 2, new Matrix(rhos, rowCount));
         
         McLeanRegressionLineFitEngineInterface mcLeanRegressionLineFitEngine = new McLeanRegressionLineFitEngine(data, unct);
         McLeanRegressionLineInterface fitLine = mcLeanRegressionLineFitEngine.fitLine();
