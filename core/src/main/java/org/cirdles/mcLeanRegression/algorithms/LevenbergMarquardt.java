@@ -156,8 +156,8 @@ public class LevenbergMarquardt {
             // common terms in derivatives
             Matrix invsi = si.inverse();
             Matrix siv = invsi.times(v);
-            Matrix vTsi = si.transpose().inverse().times(v).transpose(); // v'/si;
-            Matrix xiTsi = si.transpose().inverse().times(xi).transpose(); // xi'/si;
+            Matrix vTsi = (si.solve(v).transpose()); // v'/si;
+            Matrix xiTsi = (si.solve(xi).transpose()); // xi'/si;
             Matrix sixi = si.inverse().times(xi);  // si\xi;
             double xiTsiv = xiTsi.times(v).get(0, 0); //scalar
             double vTsiv = vTsi.times(v).get(0, 0); // scalar
@@ -213,9 +213,10 @@ public class LevenbergMarquardt {
             Matrix xi = data.getMatrix(i, i, 0, dimensionCount - 1).transpose().plus(a.times(-1.0));
             Matrix si = covMats[i];
 
-            L = L + xi.transpose().times(si.inverse().times(xi)).get(0, 0)
-                    - StrictMath.pow(v.transpose().times(si.inverse().times(xi)).get(0, 0), 2)
-                    / v.transpose().times(si.inverse().times(v)).get(0, 0);
+            // L = L + xi'*(si\xi) - (v'*(si\xi))^2/(v'*(si\v));
+            L = L + xi.transpose().times(si.solve(xi)).get(0, 0)
+                    - StrictMath.pow(v.transpose().times(si.solve(xi)).get(0, 0), 2)
+                    / v.transpose().times(si.solve(v)).get(0, 0);
         }
         // Leaving out log(det(si)) and constant terms,
         L = -0.5 * L;

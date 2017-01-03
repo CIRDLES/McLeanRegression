@@ -92,7 +92,7 @@ public class McLeanRegressionLineFitEngine implements McLeanRegressionLineFitEng
         for (int dimI = 0; dimI < dimensionLessOne; dimI++) {
             Matrix lsi = new Matrix(rows, 2, 1.0);
             lsi.setMatrix(0, rows - 1, new int[]{1}, data.getMatrix(0, rows - 1, 0, 0));
-            Matrix lsiDiv = lsi.inverse().times(data.getMatrix(0, rows - 1, dimI + 1, dimI + 1));
+            Matrix lsiDiv = lsi.solve(data.getMatrix(0, rows - 1, dimI + 1, dimI + 1));
             v0.set(dimI, 0, lsiDiv.get(1, 0) * v1);
             a0.set(dimI, 0, lsiDiv.get(0, 0) + v0.get(dimI, 0) / v1 * a1);
         }
