@@ -99,6 +99,8 @@ public class DataFileHandler implements DataFileHandlerInterface {
         McLeanRegressionLineFitEngineInterface lineFitEngine = extractDataAndUnctMatricesFromCsvFile(dataFileLocation);
         McLeanRegressionLineInterface lineFitParameters = lineFitEngine.fitLine();
         reportsEngine.produceReports(lineFitParameters);
+        
+        reportsEngine.producePlots(lineFitEngine, lineFitParameters);
     }
 
     public boolean currentDataFileLocationIsFile() {

@@ -38,16 +38,19 @@ public class McLeanRegressionReportsEngine {
      * ReportsEngine to test results
      *
      * @param lineFitParameters
-     * @param shrimpFractions the value of shrimpFractions
      * @throws java.io.IOException
      */
-    public void produceReports(McLeanRegressionLineInterface lineFitParameters) throws IOException {
-        System.out.println("Reporting line slope = " + lineFitParameters.getV()[1][0]);
-        System.out.flush();
-
+    public void produceReports(McLeanRegressionLineInterface lineFitParameters)
+            throws IOException {
         StringBuilder params = new StringBuilder();
         params.append("Reporting line slope = ").append(lineFitParameters.getV()[1][0]);
         Files.write(new File("TEST.txt").toPath(), params.toString().getBytes(UTF_8));
+    }
+
+    public void producePlots(
+            McLeanRegressionLineFitEngineInterface lineFitEngine, McLeanRegressionLineInterface lineFitParameters)
+            throws IOException {
+        TestTopsoil test = new TestTopsoil(lineFitEngine.getData().getArrayCopy(), lineFitEngine.getUnct().getArrayCopy());
     }
 
     /**
