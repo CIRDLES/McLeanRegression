@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.util.List;
 import org.cirdles.commons.util.ResourceExtractor;
 import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngine;
+import org.cirdles.mcLeanRegression.utilities.DataFileHandler;
 import org.cirdles.mcLeanRegression.utilities.FileUtilities;
 
 /**
@@ -74,6 +75,8 @@ public class McLeanRegression {
         ResourceExtractor mcLeanRegressionResourceExtractor
                 = new ResourceExtractor(McLeanRegressionLineFitEngine.class);
 
+        DataFileHandler dataFileHandler = new DataFileHandler();
+
         Path listOfDataFiles = mcLeanRegressionResourceExtractor.extractResourceAsPath("listOfDataFiles.txt");
         if (listOfDataFiles != null) {
             File exampleFolder = new File("ExampleDataFiles");
@@ -99,37 +102,44 @@ public class McLeanRegression {
                 }
             } catch (IOException iOException) {
             }
+
+            try {
+                // point to directory, but no default choice
+                dataFileHandler.setCurrentDataFileLocation(exampleFolder.getCanonicalPath());
+            } catch (IOException iOException) {
+            }
         }
 
-//        /* Set the Metal look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Metal is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Metal".equals(info.getName())) { //Nimbus (original), Motif, Metal
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(org.cirdles.calamari.userInterface.CalamariUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        if (args.length == 3) {// remove 4th argument from properties dialog command line arguments to get commandline
-//            System.out.println("Command line mode");
-//            try {
-//                prawnFileHandler.writeReportsFromPrawnFile(args[0], Boolean.valueOf(args[1]), Boolean.valueOf(args[2]), "T");
-//            } catch (IOException | JAXBException | SAXException exception) {
-//                System.out.println("Exception extracting data: " + exception.getStackTrace()[0].toString());
-//            }
-//        } else {
-//            /* Create and display the form */
-//            java.awt.EventQueue.invokeLater(() -> {
-//                new org.cirdles.calamari.userInterface.CalamariUI(prawnFileHandler).setVisible(true);
-//            });
-//        }
+        // Set up default folder for reports
+        File defaultMcLeanRegressionReportsFolder = new File("McLeanRegressionReports_v" + VERSION);
+        dataFileHandler.getReportsEngine().setFolderToWriteMcLeanRegressionReports(defaultMcLeanRegressionReportsFolder);
+        if (!defaultMcLeanRegressionReportsFolder.exists()) {
+            if (!defaultMcLeanRegressionReportsFolder.mkdir()) {
+                System.out.println("Failed to make McLeanRegression Reports directory");
+            }
+        }
+
+        /* Set the Metal look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Metal is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Metal".equals(info.getName())) { //Nimbus (original), Motif, Metal
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(org.cirdles.mcLeanRegression.userInterface.McLeanRegressionUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new org.cirdles.mcLeanRegression.userInterface.McLeanRegressionUI(dataFileHandler).setVisible(true);
+        });
     }
 
 }

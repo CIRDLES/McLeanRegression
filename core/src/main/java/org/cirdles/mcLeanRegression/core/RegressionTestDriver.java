@@ -16,8 +16,8 @@
 package org.cirdles.mcLeanRegression.core;
 
 import java.io.IOException;
-import org.cirdles.mcLeanRegression.utilities.DataPreparation;
-import org.cirdles.mcLeanRegression.utilities.DataPreparationInterface;
+import org.cirdles.mcLeanRegression.utilities.DataFileHandler;
+import org.cirdles.mcLeanRegression.utilities.DataFileHandlerInterface;
 
 /**
  *
@@ -30,7 +30,7 @@ public class RegressionTestDriver {
 
         String dataFilePath = "/Users/sbowring/Development/McLeanRegression/app/ExampleDataFiles/dataunct_2D.csv";
 
-        DataPreparationInterface dataPrep = new DataPreparation();
+        DataFileHandlerInterface dataPrep = new DataFileHandler();
         McLeanRegressionLineFitEngineInterface mcLeanRegressionLineFitEngine = dataPrep.extractDataAndUnctMatricesFromCsvFile(dataFilePath);
 
         return mcLeanRegressionLineFitEngine.fitLine();
