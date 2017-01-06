@@ -37,8 +37,8 @@ test_*
 # Resources
 !core/src/main/resources/org/cirdles/mcLeanRegression/core/*.csv
 !core/src/main/resources/org/cirdles/mcLeanRegression/core/*.txt
-!app/src/main/resources/org/cirdles/mcLeanRegression/app/*.csv
-!app/src/main/resources/org/cirdles/mcLeanRegression/app/*.txt
+!app/src/main/resources/org/cirdles/mcLeanRegression/*.csv
+!app/src/main/resources/org/cirdles/mcLeanRegression/*.txt
 !core/src/main/resources/org/cirdles/mcLeanRegression/*.txt
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
