@@ -240,6 +240,14 @@ public class McLeanRegressionLineFitEngine implements McLeanRegressionLineFitEng
     }
 
     /**
+     * @return the unct
+     */
+    @Override
+    public Matrix getUnct() {
+        return unct;
+    }
+
+    /**
      * @return the assump
      */
     @Override

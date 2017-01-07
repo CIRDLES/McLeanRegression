@@ -43,6 +43,11 @@ public interface McLeanRegressionLineFitEngineInterface {
      * @return the data
      */
     Matrix getData();
+    
+    /**
+     * @return the unct
+     */
+    public Matrix getUnct();
 
     /**
      * @return the initAV

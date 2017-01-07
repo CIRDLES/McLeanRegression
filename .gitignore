@@ -35,6 +35,7 @@ test_*
 *.ear
 
 # Resources
+!app/src/main/resources/org/cirdles/mcLeanRegression/*.txt
 !core/src/main/resources/org/cirdles/mcLeanRegression/core/*.csv
 !core/src/main/resources/org/cirdles/mcLeanRegression/core/*.txt
 !core/src/main/resources/org/cirdles/mcLeanRegression/*.txt

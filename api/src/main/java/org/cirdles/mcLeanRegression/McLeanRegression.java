@@ -20,8 +20,9 @@ import java.io.IOException;
 import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngine;
 import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngineInterface;
 import org.cirdles.mcLeanRegression.core.McLeanRegressionLineInterface;
-import org.cirdles.mcLeanRegression.utilities.DataPreparation;
-import org.cirdles.mcLeanRegression.utilities.DataPreparationInterface;
+import org.cirdles.mcLeanRegression.utilities.DataFileHandler;
+import org.cirdles.mcLeanRegression.utilities.DataFileHandlerInterface;
+
 
 /**
  *
@@ -40,7 +41,7 @@ public class McLeanRegression implements McLeanRegressionInterface {
             throws IOException {
 
         String dataFilePath = myDataFilePath;
-        DataPreparationInterface dataPrep = new DataPreparation();
+        DataFileHandlerInterface dataPrep = new DataFileHandler();
         McLeanRegressionLineFitEngineInterface mcLeanRegressionLineFitEngine = dataPrep.extractDataAndUnctMatricesFromCsvFile(dataFilePath);
 
         McLeanRegressionLineInterface fitLine = mcLeanRegressionLineFitEngine.fitLine();

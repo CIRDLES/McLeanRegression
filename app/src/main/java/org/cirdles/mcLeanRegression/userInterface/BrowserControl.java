@@ -13,17 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.cirdles.mcLeanRegression.utilities;
+package org.cirdles.mcLeanRegression.userInterface;
 
+import java.awt.Desktop;
 import java.io.IOException;
-import org.cirdles.mcLeanRegression.core.McLeanRegressionLineFitEngineInterface;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  *
- * @author CIRDLES.org
+ * @author James F. Bowring
  */
-public interface DataPreparationInterface {
+public class BrowserControl {
 
-    McLeanRegressionLineFitEngineInterface extractDataAndUnctMatricesFromCsvFile(String dataFileLocation) throws IOException;
-    
+    public static void showURI(String location) {
+        try {
+            Desktop desktop = java.awt.Desktop.getDesktop();
+            URI oURL = new URI(location);
+            desktop.browse(oURL);
+        } catch (URISyntaxException | IOException e) {
+            // act dumb for now
+        }
+    }
 }
