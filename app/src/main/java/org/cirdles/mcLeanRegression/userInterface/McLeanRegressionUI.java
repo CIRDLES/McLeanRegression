@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2016 CIRDLES.org.
+ * Copyright 2006-2017 CIRDLES.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -322,7 +322,7 @@ public class McLeanRegressionUI extends javax.swing.JFrame {
 
     private void reduceDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reduceDataButtonActionPerformed
         if (dataFileHandler.currentDataFileLocationIsFile()) {
-            dataFileHandler.initReportsEngineWithCurrentPrawnFileName();
+            dataFileHandler.initReportsEngineWithCurrentDataFileName();
             new ReduceDataWorker(
                     dataFileHandler,
                     reduceDataProgressBar).execute();

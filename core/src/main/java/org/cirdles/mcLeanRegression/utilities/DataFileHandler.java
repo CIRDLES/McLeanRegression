@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2016 CIRDLES.org.
+ * Copyright 2006-2017 CIRDLES.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -107,14 +107,14 @@ public class DataFileHandler implements DataFileHandlerInterface {
         return new File(currentDataFileLocation).isFile();
     }
 
-    public void initReportsEngineWithCurrentPrawnFileName() {
-        // strip .xml from file name
+    public void initReportsEngineWithCurrentDataFileName() {
+        // strip .csv from file name
         reportsEngine.setNameOfCsvDataFile(new File(currentDataFileLocation).getName().split("\\.")[0]);
     }
 
-    public void initReportsEngineWithCurrentPrawnFileName(String prawnFileLocation) {
-        // strip .xml from file name
-        reportsEngine.setNameOfCsvDataFile(new File(prawnFileLocation).getName().split("\\.")[0]);
+    public void initReportsEngineWithCurrentDataFileName(String dataFileLocation) {
+        // strip .csv from file name
+        reportsEngine.setNameOfCsvDataFile(new File(dataFileLocation).getName().split("\\.")[0]);
     }
 
     /**
