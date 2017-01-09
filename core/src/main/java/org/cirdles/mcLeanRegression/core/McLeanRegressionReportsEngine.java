@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2016 CIRDLES.org.
+ * Copyright 2006-2017 CIRDLES.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.cirdles.mcLeanRegression.core;
 
+import Jama.Matrix;
 import java.io.File;
 import java.io.IOException;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -47,10 +48,41 @@ public class McLeanRegressionReportsEngine {
         Files.write(new File("TEST.txt").toPath(), params.toString().getBytes(UTF_8));
     }
 
+    /**
+     * Plots the first variable ("x") against each of the remaining dimension variables.
+     * @param lineFitEngine
+     * @param lineFitParameters
+     * @throws IOException 
+     */
     public void producePlots(
             McLeanRegressionLineFitEngineInterface lineFitEngine, McLeanRegressionLineInterface lineFitParameters)
             throws IOException {
-        TestTopsoil test = new TestTopsoil(lineFitEngine.getData().getArrayCopy(), lineFitEngine.getUnct().getArrayCopy());
+        
+        int dimCount = lineFitParameters.getA().length;
+        
+        Matrix x = lineFitEngine.getData().getMatrix(0, lineFitParameters.getN() - 1, 0, 0);
+        Matrix xUnct = lineFitEngine.getUnct().getMatrix(0, lineFitParameters.getN() - 1, 0, 0);
+
+        TopsoilPlotter [] plots = new TopsoilPlotter[dimCount - 1];
+        
+        for (int dim = 1; dim < dimCount; dim++) {
+            Matrix y = lineFitEngine.getData().getMatrix(0, lineFitParameters.getN() - 1, dim, dim);
+            Matrix yUnct = lineFitEngine.getUnct().getMatrix(0, lineFitParameters.getN() - 1, dim, dim);
+            Matrix rho = lineFitEngine.getUnct().getMatrix(0, lineFitParameters.getN() - 1, dimCount + dim - 1, dimCount + dim - 1);
+
+            Matrix data = new Matrix(lineFitParameters.getN(), 2);
+            Matrix unct = new Matrix(lineFitParameters.getN(), 3);
+
+            data.setMatrix(0, lineFitParameters.getN() - 1, 0, 0, x);
+            data.setMatrix(0, lineFitParameters.getN() - 1, 1, 1, y);
+
+            unct.setMatrix(0, lineFitParameters.getN() - 1, 0, 0, xUnct);
+            unct.setMatrix(0, lineFitParameters.getN() - 1, 1, 1, yUnct);
+            unct.setMatrix(0, lineFitParameters.getN() - 1, 2, 2, rho);
+
+            plots[dim] = new TopsoilPlotter(data.getArrayCopy(), unct.getArrayCopy());
+            
+        }
     }
 
     /**
