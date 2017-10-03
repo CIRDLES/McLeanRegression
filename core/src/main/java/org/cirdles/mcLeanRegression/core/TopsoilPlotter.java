@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 import org.cirdles.topsoil.plot.Plot;
-import org.cirdles.topsoil.plot.upb.uncertainty.UncertaintyEllipsePlot;
+//import org.cirdles.topsoil.plot.upb.uncertainty.UncertaintyEllipsePlot;
+import org.cirdles.topsoil.plot.base.BasePlot;
 
 /**
  *
@@ -40,7 +41,7 @@ public class TopsoilPlotter {
 
         Plot myChart = null;
         try {
-            myChart = new UncertaintyEllipsePlot();
+            myChart = new BasePlot();
         } catch (Exception e) {
         }
 
