@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.cirdles.mcLeanRegression.core;
+package org.cirdles.mcLeanRegression;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 import org.cirdles.topsoil.plot.Plot;
-//import org.cirdles.topsoil.plot.upb.uncertainty.UncertaintyEllipsePlot;
 import org.cirdles.topsoil.plot.base.BasePlot;
 
 /**

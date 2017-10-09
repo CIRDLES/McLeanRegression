@@ -100,7 +100,7 @@ public class DataFileHandler implements DataFileHandlerInterface {
         McLeanRegressionLineInterface lineFitParameters = lineFitEngine.fitLine();
         reportsEngine.produceReports(lineFitParameters);
         
-        reportsEngine.producePlots(lineFitEngine, lineFitParameters);
+        //reportsEngine.producePlots(lineFitEngine, lineFitParameters);
     }
 
     public boolean currentDataFileLocationIsFile() {
