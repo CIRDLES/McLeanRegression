@@ -11,5 +11,5 @@
 // your own implementation.
 
 dependencies {
-    compile project(":core")
+    implementation project(":core")
 }
